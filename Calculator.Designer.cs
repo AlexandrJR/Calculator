@@ -39,6 +39,9 @@
             this.button8 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button0 = new System.Windows.Forms.Button();
+            this.buttonDecimal = new System.Windows.Forms.Button();
+            this.BackSpace = new System.Windows.Forms.Button();
+            this.ButtonSign = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Display
@@ -46,7 +49,7 @@
             this.Display.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.Display.Location = new System.Drawing.Point(38, 52);
             this.Display.Name = "Display";
-            this.Display.Size = new System.Drawing.Size(364, 46);
+            this.Display.Size = new System.Drawing.Size(265, 46);
             this.Display.TabIndex = 0;
             this.Display.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -150,11 +153,47 @@
             this.button0.UseVisualStyleBackColor = true;
             this.button0.Click += new System.EventHandler(this.Button_Click);
             // 
+            // buttonDecimal
+            // 
+            this.buttonDecimal.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.buttonDecimal.Location = new System.Drawing.Point(228, 362);
+            this.buttonDecimal.Name = "buttonDecimal";
+            this.buttonDecimal.Size = new System.Drawing.Size(75, 75);
+            this.buttonDecimal.TabIndex = 11;
+            this.buttonDecimal.Text = ".";
+            this.buttonDecimal.UseVisualStyleBackColor = true;
+            this.buttonDecimal.Click += new System.EventHandler(this.buttonDecimal_Click);
+            // 
+            // BackSpace
+            // 
+            this.BackSpace.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.BackSpace.Location = new System.Drawing.Point(322, 52);
+            this.BackSpace.Name = "BackSpace";
+            this.BackSpace.Size = new System.Drawing.Size(48, 32);
+            this.BackSpace.TabIndex = 12;
+            this.BackSpace.Text = "<-";
+            this.BackSpace.UseVisualStyleBackColor = true;
+            this.BackSpace.Click += new System.EventHandler(this.BackSpace_Click);
+            // 
+            // ButtonSign
+            // 
+            this.ButtonSign.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.ButtonSign.Location = new System.Drawing.Point(38, 363);
+            this.ButtonSign.Name = "ButtonSign";
+            this.ButtonSign.Size = new System.Drawing.Size(75, 75);
+            this.ButtonSign.TabIndex = 13;
+            this.ButtonSign.Text = "+/-";
+            this.ButtonSign.UseVisualStyleBackColor = true;
+            this.ButtonSign.Click += new System.EventHandler(this.Sign_Click);
+            // 
             // Calculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(447, 450);
+            this.Controls.Add(this.ButtonSign);
+            this.Controls.Add(this.BackSpace);
+            this.Controls.Add(this.buttonDecimal);
             this.Controls.Add(this.button0);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button8);
@@ -186,6 +225,9 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button0;
+        private System.Windows.Forms.Button buttonDecimal;
+        private System.Windows.Forms.Button BackSpace;
+        private System.Windows.Forms.Button ButtonSign;
     }
 }
 
