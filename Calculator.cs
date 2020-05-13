@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,6 +14,7 @@ namespace Calculator
 {
     public partial class Calculator : Form
     {
+        char decimalSeparator;
         public Calculator()
         {
             InitializeComponent();
@@ -21,8 +23,12 @@ namespace Calculator
 
         private void InitializeCalculator()
         {
+            decimalSeparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
             this.BackColor = Color.Purple;
             Display.Font = new Font("Tahoma", 22);
+            Display.Text = "0";
+            Display.TabStop = false;
+
             string buttonName;
             Button button;
             for (int i = 0; i<10; i++)
@@ -51,9 +57,13 @@ namespace Calculator
         private void BackSpace_Click(object sender, EventArgs e)
         {
             string s = Display.Text;
-            else if(Display.Text != string.Empty)
+            if(s.Length > 1)
             {
                 s = s.Substring(0, s.Length - 1);
+            }
+            else
+            {
+                s = "0";
             }
             Display.Text = s;
         }
@@ -62,20 +72,24 @@ namespace Calculator
         {
             if(Display.Text == string.Empty)
             {
-                Display.Text = "0.";
+                Display.Text = "0" + decimalSeparator;
             }
-            else if (!Display.Text.Contains("."))
+            else if (!Display.Text.Contains(decimalSeparator))
             {
-                Display.Text += ".";
+                Display.Text += decimalSeparator;
             }
             
         }
 
         private void ButtonSign_Click(object sender, EventArgs e)
         {
-            double number = Convert.ToDouble(Display.Text);
-            number *= -1;
-            Display.Text = Convert.ToString(number);
+            string s = Display.Text;
+            if (!s.Contains("-") || s.Length != 1)
+            {
+                double number = Convert.ToDouble(Display.Text);
+                number *= -1;
+                Display.Text = Convert.ToString(number);
+            }
         }
     }
 }
