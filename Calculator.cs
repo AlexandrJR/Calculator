@@ -13,7 +13,6 @@ namespace Calculator
 {
     public partial class Calculator : Form
     {
-        double i = 2;
         public Calculator()
         {
             InitializeComponent();
@@ -49,39 +48,34 @@ namespace Calculator
             }
         }
 
-        private void buttonDecimal_Click(object sender, EventArgs e)
-        {
-            if (!Display.Text.Contains("."))
-            {
-                if(Display.Text == string.Empty)
-                {
-                    Display.Text += "0.";
-                }
-                else
-                {
-                    Display.Text += ".";
-                }
-            }
-        }
-
         private void BackSpace_Click(object sender, EventArgs e)
         {
             string s = Display.Text;
-            if(s.Length > 0)
+            else if(Display.Text != string.Empty)
             {
                 s = s.Substring(0, s.Length - 1);
             }
             Display.Text = s;
         }
 
-        private void Sign_Click(object sender, EventArgs e)
+        private void buttonDecimal_Click(object sender, EventArgs e)
         {
-            if (Display.Text != string.Empty)
+            if(Display.Text == string.Empty)
             {
-                double number = Convert.ToDouble(Display.Text);
-                number *= -1;
-                Display.Text = Convert.ToString(number);
-            } 
+                Display.Text = "0.";
+            }
+            else if (!Display.Text.Contains("."))
+            {
+                Display.Text += ".";
+            }
+            
+        }
+
+        private void ButtonSign_Click(object sender, EventArgs e)
+        {
+            double number = Convert.ToDouble(Display.Text);
+            number *= -1;
+            Display.Text = Convert.ToString(number);
         }
     }
 }
