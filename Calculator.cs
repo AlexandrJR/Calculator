@@ -16,9 +16,13 @@ namespace Calculator
     {
         char decimalSeparator;
 
-        double numOne = 0;
-        double numTwo = 0;
-        string operation = null;
+        double numOne;
+        double numTwo;
+        string sign;
+
+        int usedLength;
+
+        double result = 0;
         public Calculator()
         {
             InitializeComponent();
@@ -98,37 +102,41 @@ namespace Calculator
 
         private void OperationClick(object sender, EventArgs e)
         {
+            string s = Display.Text;
+            numOne = Convert.ToDouble(s);
             Button button = (Button)sender;
-            operation = button.Text;
-            numOne = Convert.ToDouble(Display.Text);
-            Display.Text = string.Empty;
+            Display.Text += button.Text;
+            usedLength = Display.Text.Length;
+            sign = button.Text;
         }
 
         private void buttonEquality_Click(object sender, EventArgs e)
         {
-            numTwo = Convert.ToDouble(Display.Text);
-            switch (operation)
+            string s = Display.Text;
+            numTwo = Convert.ToDouble(s.Substring(usedLength, s.Length - usedLength));
+            switch (sign)
             {
                 case "+":
-                    Display.Text = Convert.ToString(numOne + numTwo);
-                    break;
+                    result = numOne + numTwo;
+                break;
                 case "-":
-                    Display.Text = Convert.ToString(numOne - numTwo);
+                    result = numOne - numTwo;
                     break;
                 case "*":
-                    Display.Text = Convert.ToString(numOne * numTwo);
+                    result = numOne * numTwo;
                     break;
                 case "/":
-                    Display.Text = Convert.ToString(numOne / numTwo);
+                    result = numOne / numTwo;
                     break;
+
             }
+            Display.Text = Convert.ToString(result);       
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
             Display.Text = "0";
-            numOne = 0;
-            numTwo = 0;
+            
         }
     }
 }
