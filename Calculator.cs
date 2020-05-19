@@ -16,6 +16,8 @@ namespace Calculator
     {
         char decimalSeparator;
 
+        bool openPanel = true;
+
         double numOne;
         double numTwo;
         string sign;
@@ -33,6 +35,10 @@ namespace Calculator
         {
             decimalSeparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
             this.BackColor = Color.Purple;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.StartPosition = FormStartPosition.CenterScreen;
+
             Display.Font = new Font("Tahoma", 22);
             Display.Text = "0";
             Display.TabStop = false;
@@ -92,7 +98,7 @@ namespace Calculator
         private void ButtonSign_Click(object sender, EventArgs e)
         {
             string s = Display.Text;
-            if (!s.Contains("-") || s.Length != 1)
+            if (!s.Contains("-") || s.Length != 1 && !s.Contains(sign))
             {
                 double number = Convert.ToDouble(Display.Text);
                 number *= -1;
@@ -102,12 +108,28 @@ namespace Calculator
 
         private void OperationClick(object sender, EventArgs e)
         {
-            string s = Display.Text;
-            numOne = Convert.ToDouble(s);
-            Button button = (Button)sender;
-            Display.Text += button.Text;
-            usedLength = Display.Text.Length;
-            sign = button.Text;
+            try
+            {
+                string s = Display.Text;
+                numOne = Convert.ToDouble(s);
+
+                Button button = (Button)sender;
+                Display.Text += button.Text;
+
+                usedLength = Display.Text.Length;
+
+                sign = button.Text;
+
+                if (sign == "√")
+                {
+                    Display.Text = Convert.ToString(Math.Sqrt(numOne));
+                }
+            }
+            catch
+            {
+                MessageBox.Show("You can use just one operator!");
+            }
+
         }
 
         private void buttonEquality_Click(object sender, EventArgs e)
@@ -126,7 +148,17 @@ namespace Calculator
                     result = numOne * numTwo;
                     break;
                 case "/":
-                    result = numOne / numTwo;
+                    if (numTwo == 0)
+                    {
+                        MessageBox.Show("Cannot be devided by 0 !");
+                    }
+                    else
+                    {
+                        result = numOne / numTwo;
+                    }
+                    break;
+                case "^":
+                    result = Math.Pow(numOne, numTwo);
                     break;
 
             }
@@ -137,6 +169,22 @@ namespace Calculator
         {
             Display.Text = "0";
             
+        }
+
+        private void buttonSwitch_Click(object sender, EventArgs e)
+        {
+            if (openPanel)
+            {
+                this.Width = 523;
+                buttonSwitch.Text = "<=";
+                openPanel = false;
+            }
+            else
+            {
+                this.Width = 444;
+                buttonSwitch.Text = "=>";
+                openPanel = true;
+            }
         }
     }
 }
